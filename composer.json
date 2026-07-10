@@ -5,11 +5,27 @@
   "license": "MIT",
   "require": {
     "php": "^8.2",
-    "guzzlehttp/guzzle": "^7.7"
+    "guzzlehttp/guzzle": "^7.7",
+    "symfony/serializer": "^6.3|^7",
+    "symfony/property-access": "^6.3|^7",
+    "symfony/property-info": "^6.3|^7",
+    "firebase/php-jwt": "^6.11"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11"
   },
   "autoload": {
     "psr-4": {
-      "PinVandaag\\PMarketApiDevelop\\": "src/"
+      "PinVandaag\\PMarketAPIDevelop\\": "src/"
     }
-  }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PinVandaag\\PMarketAPIDevelop\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "stable"
 }
