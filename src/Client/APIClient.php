@@ -324,9 +324,9 @@ final class APIClient
             );
         }
 
-        // @TODO: devKey can be removed i guess
+        // @TODO: devKey is used in the Java source
         $query['devKey'] = $this->apiKey;
-        $query['sysKey'] = $this->apiKey;
+        // $query['sysKey'] = $this->apiKey;
         $query['timestamp'] = (string) (int) floor(microtime(true) * 1000);
 
         $queryString = $this->javaBuildQuery($query);
