@@ -298,7 +298,7 @@ final class APIClient
             'Accept' => 'application/json',
             'SDK-Language' => 'Java',
             'SDK-Version' => '10.2.1',
-            'content-language' => $this->contentLanguage,
+            'Accept-Language' => $this->contentLanguage,
             'Time-Zone' => $this->timeZone,
         ];
     }
