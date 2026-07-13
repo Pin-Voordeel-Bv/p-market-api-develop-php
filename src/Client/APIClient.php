@@ -313,23 +313,41 @@ final class APIClient
     private function signedQueryAndSignature(array $query): array
     {
         if ($this->apiKey === null || $this->apiKey === '') {
-            throw new PMarketAPIDevelopException('P Market Developer API key has not been configured.');
+            throw new PMarketAPIDevelopException(
+                'P Market Developer API key has not been configured.'
+            );
         }
 
         if ($this->apiSecret === null || $this->apiSecret === '') {
-            throw new PMarketAPIDevelopException('P Market Developer API secret has not been configured.');
+            throw new PMarketAPIDevelopException(
+                'P Market Developer API secret has not been configured.'
+            );
         }
 
+        // @TODO: devKey can be removed i guess
         $query['devKey'] = $this->apiKey;
+        $query['sysKey'] = $this->apiKey;
         $query['timestamp'] = (string) (int) floor(microtime(true) * 1000);
 
         $queryString = $this->javaBuildQuery($query);
-        $signature = strtoupper(md5($queryString . $this->apiSecret));
+
+        $signature = strtoupper(
+            hash_hmac(
+                'sha256',
+                $queryString,
+                $this->apiSecret,
+            )
+        );
 
         return [$queryString, $signature];
     }
 
-    /** @param array<string, string> $query */
+    /**
+     * Java's ThirdPartySysHttpUtils.buildQuery() does not sort here; it keeps insertion order.
+     * It URL-encodes values with Java URLEncoder semantics, where spaces become `+`.
+     *
+     * @param array<string, string> $query
+     */
     private function javaBuildQuery(array $query): string
     {
         $parts = [];
